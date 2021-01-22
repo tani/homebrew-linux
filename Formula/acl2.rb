@@ -7,6 +7,7 @@ class Acl2 < Formula
 
   depends_on "clozure-cl"
   depends_on "openssl"
+  depends_on "z3"
 
   bottle do
     root_url "http://localhost:8000"
