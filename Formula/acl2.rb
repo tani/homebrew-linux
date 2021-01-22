@@ -5,18 +5,12 @@ class Acl2 < Formula
   sha256 "45eedddb36b2eff889f0dba2b96fc7a9b1cf23992fcfdf909bc179f116f2c5ea"
   license "BSD-3-Clause"
 
-  depends_on "sbcl"
+  depends_on "clozure-cl"
 
   def install
     system "make",
-           "LISP=#{HOMEBREW_PREFIX}/bin/sbcl",
+	   "LISP=#{Formula["clozure-cl"].opt_bin}/ccl64",
            "ACL2=#{buildpath}/saved_acl2",
-           "USE_QUICKLISP=0",
-           "all", "basic"
-    system "make",
-           "LISP=#{HOMEBREW_PREFIX}/bin/sbcl",
-           "ACL2_PAR=p",
-           "ACL2=#{buildpath}/saved_acl2p",
            "USE_QUICKLISP=0",
            "all", "basic"
     libexec.install Dir["*"]
@@ -24,12 +18,7 @@ class Acl2 < Formula
     (bin/"acl2").write <<~EOF
       #!/bin/sh
       export ACL2_SYSTEM_BOOKS='#{libexec}/books'
-      #{Formula["sbcl"].opt_bin}/sbcl --core '#{libexec}/saved_acl2.core' --userinit /dev/null --eval '(acl2::sbcl-restart)'
-    EOF
-    (bin/"acl2p").write <<~EOF
-      #!/bin/sh
-      export ACL2_SYSTEM_BOOKS='#{libexec}/books'
-      #{Formula["sbcl"].opt_bin}/sbcl --core '#{libexec}/saved_acl2p.core' --userinit /dev/null --eval '(acl2::sbcl-restart)'
+      exec '#{Formula["clozure-cl"].opt_bin}/ccl64' -I '#{libexec}/saved_acl2.lx86cl64' -Z 64M -K ISO-8859-1 -e '(acl2::acl2-default-restart)' "$@"
     EOF
   end
 
