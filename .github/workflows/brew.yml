@@ -7,8 +7,7 @@ jobs:
     name: Run brew install
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run brew-install
-        run: brew install -f Formula/emacs-gtk.rb
-        
+      - name: Tap tani/linux
+        run: brew tap tani/linux
+      - name: Install emacs-gtk
+        run: brew install -f emacs-gtk
