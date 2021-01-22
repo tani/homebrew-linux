@@ -8,17 +8,23 @@ class Acl2 < Formula
   depends_on "clozure-cl"
 
   def install
+    suffix =
+      if OS.mac?
+        "dx86cl64"
+      elsif OS.linux?
+        "lx86cl64"
+      end
+
     system "make",
-	   "LISP=#{Formula["clozure-cl"].opt_bin}/ccl64",
-           "ACL2=#{buildpath}/saved_acl2",
-           "USE_QUICKLISP=0",
-           "all", "basic"
+      "LISP=#{Formula["clozure-cl"].opt_bin}/ccl64",
+      "ACL2=#{buildpath}/saved_acl2",
+      "all", "basic"
     libexec.install Dir["*"]
 
     (bin/"acl2").write <<~EOF
       #!/bin/sh
       export ACL2_SYSTEM_BOOKS='#{libexec}/books'
-      exec '#{Formula["clozure-cl"].opt_bin}/ccl64' -I '#{libexec}/saved_acl2.lx86cl64' -Z 64M -K ISO-8859-1 -e '(acl2::acl2-default-restart)' "$@"
+      exec '#{Formula["clozure-cl"].opt_bin}/ccl64' -I '#{libexec}/saved_acl2.#{suffix}' -Z 64M -K ISO-8859-1 -e '(acl2::acl2-default-restart)' "$@"
     EOF
   end
 
