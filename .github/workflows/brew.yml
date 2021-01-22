@@ -10,4 +10,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install emacs-gtk
-        run: docker run --rm -v ${PWD}:/work -u linuxbrew linuxbrew/brew:latest brew install -f /work/Formula/emacs-gtk
+        run: docker run --rm -v ${GITHUB_WORKSPACE}:/work -u linuxbrew linuxbrew/brew:latest brew install -f /work/Formula/emacs-gtk.rb
