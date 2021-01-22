@@ -5,9 +5,12 @@ on: push
 jobs:
   brew-install:
     name: Run brew install
+    strategy:
+      matrix:
+        package: [emacs-gtk, acl2]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install emacs-gtk
-        run: docker run --rm -v ${GITHUB_WORKSPACE}:/work -u linuxbrew linuxbrew/brew:latest brew install -v -f /work/Formula/emacs-gtk.rb
+        run: docker run --rm -v ${GITHUB_WORKSPACE}:/work -u linuxbrew linuxbrew/brew:latest brew install -v -f /work/Formula/${{package}}.rb
