@@ -25,7 +25,6 @@ class Acl2 < Formula
     system "make",
       "LISP=#{Formula["clozure-cl"].opt_bin}/ccl64",
       "ACL2=#{buildpath}/saved_acl2",
-      "ACL2_PAR=t"
       "all", "basic"
     libexec.install Dir["*"]
 
