@@ -7,11 +7,11 @@ class Isabelle < Formula
   license "BSD-3-Clause"
 
   def install
-    bin.install "Isabelle#{version}"
-    bin.install Dir["bin/*"]
+    libexec.install Dir["*"]
+    bin.install_symlink libexec/"bin"/"isabelle"
   end
 
   test do
-    system "false"
+    system "isabelle"
   end
 end
