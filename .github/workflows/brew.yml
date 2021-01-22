@@ -7,7 +7,7 @@ jobs:
     name: Run brew install
     strategy:
       matrix:
-        package: [emacs-gtk, acl2]
+        package: [emacs-gtk, acl2, isabelle]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
