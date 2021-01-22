@@ -7,6 +7,8 @@ jobs:
     name: Run brew install
     runs-on: ubuntu-latest
     steps:
+      - name: Update taps
+        run: brew update
       - name: Tap tani/linux
         run: brew tap tani/linux
       - name: Install emacs-gtk
