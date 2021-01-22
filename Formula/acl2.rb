@@ -6,6 +6,7 @@ class Acl2 < Formula
   license "BSD-3-Clause"
 
   depends_on "clozure-cl"
+  depends_on "openssl"
 
   bottle do
     root_url "http://localhost:8000"
@@ -25,6 +26,7 @@ class Acl2 < Formula
     system "make",
       "LISP=#{Formula["clozure-cl"].opt_bin}/ccl64",
       "ACL2=#{buildpath}/saved_acl2",
+      "ACL2_PAR=t",
       "all", "basic"
     libexec.install Dir["*"]
 
