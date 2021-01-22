@@ -1,0 +1,14 @@
+name: Test Formulae
+
+on: push
+
+jobs:
+  brew-install:
+    name: Run brew install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run brew-install
+        run: brew install -f Formula/emacs-gtk.rb
+        
