@@ -27,9 +27,6 @@ class Acl2 < Formula
     system "make",
       "LISP=#{Formula["clozure-cl"].opt_bin}/ccl64",
       "ACL2_PAR=p",
-    system "make",
-      "LISP=#{Formula["clozure-cl"].opt_bin}/ccl64",
-      "ACL2_PAR=p",
       "ACL2=#{buildpath}/saved_acl2p",
       "USE_QUICKLISP=1",
       "all", "basic"
