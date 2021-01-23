@@ -26,15 +26,11 @@ class Acl2 < Formula
 
     system "make",
       "LISP=#{Formula["clozure-cl"].opt_bin}/ccl64",
-      "ACL2_HONS=h",
       "ACL2_PAR=p",
-      "ACL2_REAL=r"
     system "make",
       "LISP=#{Formula["clozure-cl"].opt_bin}/ccl64",
-      "ACL2_HONS=h",
       "ACL2_PAR=p",
-      "ACL2_REAL=r",
-      "ACL2=#{buildpath}/saved_acl2pr",
+      "ACL2=#{buildpath}/saved_acl2p",
       "USE_QUICKLISP=1",
       "all", "basic"
     libexec.install Dir["*"]
@@ -42,7 +38,7 @@ class Acl2 < Formula
     (bin/"acl2").write <<~EOF
       #!/bin/sh
       export ACL2_SYSTEM_BOOKS='#{libexec}/books'
-      exec '#{Formula["clozure-cl"].opt_bin}/ccl64' -I '#{libexec}/saved_acl2pr.#{suffix}' -Z 64M -K ISO-8859-1 -e '(acl2::acl2-default-restart)' "$@"
+      exec '#{Formula["clozure-cl"].opt_bin}/ccl64' -I '#{libexec}/saved_acl2p.#{suffix}' -Z 64M -K ISO-8859-1 -e '(acl2::acl2-default-restart)' "$@"
     EOF
   end
 
