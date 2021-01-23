@@ -7,6 +7,12 @@ class Acl2 < Formula
 
   depends_on "clozure-cl"
 
+  bottle do
+    root_url "https://linuxbrew.bintray.com/bottles-linux"
+    cellar :any_skip_relocation
+    sha256 "05ab745c17aea88ba083379a2b850313cb0cfef3b3fc9566dc89b76ca00b463b" => :x86_64_linux
+  end
+
   def install
     system "make",
 	   "LISP=#{Formula["clozure-cl"].opt_bin}/ccl64",
