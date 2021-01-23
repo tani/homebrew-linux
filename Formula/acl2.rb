@@ -6,6 +6,15 @@ class Acl2 < Formula
   license "BSD-3-Clause"
 
   depends_on "clozure-cl"
+  depends_on "openssl"
+  depends_on "z3"
+
+  bottle do
+    root_url "http://localhost:8000"
+    cellar :any
+    sha256 "8bcfdb1a78afd670f6d7c16fcc7093a1271fdd090a222d18e5e8ddb2b56eb1ef" => :catalina
+    sha256 "05ab745c17aea88ba083379a2b850313cb0cfef3b3fc9566dc89b76ca00b463b" => :x86_64_linux
+  end
 
   bottle do
     root_url "https://linuxbrew.bintray.com/bottles-linux"
@@ -14,17 +23,32 @@ class Acl2 < Formula
   end
 
   def install
+    suffix =
+      if OS.mac?
+        "dx86cl64"
+      elsif OS.linux?
+        "lx86cl64"
+      end
+
     system "make",
-	   "LISP=#{Formula["clozure-cl"].opt_bin}/ccl64",
-           "ACL2=#{buildpath}/saved_acl2",
-           "USE_QUICKLISP=0",
-           "all", "basic"
+      "LISP=#{Formula["clozure-cl"].opt_bin}/ccl64",
+      "ACL2_HONS=h",
+      "ACL2_PAR=p",
+      "ACL2_REAL=r"
+    system "make",
+      "LISP=#{Formula["clozure-cl"].opt_bin}/ccl64",
+      "ACL2_HONS=h",
+      "ACL2_PAR=p",
+      "ACL2_REAL=r",
+      "ACL2=#{buildpath}/saved_acl2pr",
+      "USE_QUICKLISP=1",
+      "all", "basic"
     libexec.install Dir["*"]
 
     (bin/"acl2").write <<~EOF
       #!/bin/sh
       export ACL2_SYSTEM_BOOKS='#{libexec}/books'
-      exec '#{Formula["clozure-cl"].opt_bin}/ccl64' -I '#{libexec}/saved_acl2.lx86cl64' -Z 64M -K ISO-8859-1 -e '(acl2::acl2-default-restart)' "$@"
+      exec '#{Formula["clozure-cl"].opt_bin}/ccl64' -I '#{libexec}/saved_acl2pr.#{suffix}' -Z 64M -K ISO-8859-1 -e '(acl2::acl2-default-restart)' "$@"
     EOF
   end
 
