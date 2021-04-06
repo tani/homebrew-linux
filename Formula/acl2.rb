@@ -9,13 +9,6 @@ class Acl2 < Formula
   depends_on "openssl"
   depends_on "z3"
 
-  bottle do
-    root_url "http://localhost:8000"
-    cellar :any
-    sha256 "8bcfdb1a78afd670f6d7c16fcc7093a1271fdd090a222d18e5e8ddb2b56eb1ef" => :catalina
-    sha256 "05ab745c17aea88ba083379a2b850313cb0cfef3b3fc9566dc89b76ca00b463b" => :x86_64_linux
-  end
-
   def install
     suffix =
       if OS.mac?
