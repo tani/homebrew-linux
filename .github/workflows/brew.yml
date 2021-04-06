@@ -7,10 +7,16 @@ jobs:
     name: Run brew install
     strategy:
       matrix:
-        package: [emacs-gtk, acl2, isabelle]
+        package:
+          - name: emacs-gtk
+            options: ''
+          - name: acl2
+            options: ''
+          - name: isabelle
+            options: '--HEAD'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install ${{ matrix.package }}
-        run: docker run --rm -v ${GITHUB_WORKSPACE}:/work -u linuxbrew linuxbrew/brew:latest brew install -v -f /work/Formula/${{ matrix.package }}.rb
+        run: docker run --rm -v ${GITHUB_WORKSPACE}:/work -u linuxbrew linuxbrew/brew:latest brew install -v --formula ${{matrix.package.options}} /work/Formula/${{ matrix.package.name }}.rb
