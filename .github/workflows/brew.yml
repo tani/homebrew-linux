@@ -35,5 +35,5 @@ jobs:
             curl -fsSL https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz.sha256sum
           )"
       - name: Update Formula
-        run: sed "s/sha256 \".*\"/sha256 \"${{ steps.checksum.SHA256 }}\"" Formula/neovim.rb
+        run: sed "s/sha256 \".*\"/sha256 \"${{ steps.outputs.checksum.SHA256 }}\"/" Formula/neovim.rb
 
