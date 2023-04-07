@@ -15,7 +15,7 @@ jobs:
           - name: isabelle
             options: '--HEAD'
           - name: neovim
-            options: ''
+            options: '--HEAD'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
