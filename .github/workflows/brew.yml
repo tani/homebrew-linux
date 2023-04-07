@@ -14,9 +14,26 @@ jobs:
             options: ''
           - name: isabelle
             options: '--HEAD'
+          - name: neovim
+            options: ''
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install ${{ matrix.package }}
         run: docker run --rm -v ${GITHUB_WORKSPACE}:/work -u linuxbrew linuxbrew/brew:latest brew install -v --formula ${{matrix.package.options}} /work/Formula/${{ matrix.package.name }}.rb
+  brew-update:
+    name: Update Formula
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download Checksum
+        id: checksum
+        run: >-
+          echo "::set-output name=SHA256::$(
+            curl -fsSL https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz.sha256sum
+          )"
+      - name: Update Formula
+        run: sed "s/sha256 \".*\"/sha256 \"${{ steps.checksum.SHA256 }}\"" Formula/neovim.rb
+
