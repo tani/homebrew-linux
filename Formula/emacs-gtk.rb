@@ -36,7 +36,6 @@ class EmacsGtk < Formula
   depends_on "libtiff"
   depends_on "libpng"
   depends_on "cairo"
-  depends_on "imagemagick"
   depends_on "freetype"
   depends_on "fontconfig"
   depends_on "gtk+3"
@@ -59,7 +58,6 @@ class EmacsGtk < Formula
       --with-x-toolkit=gtk3
       --with-cairo
       --with-harfbuzz
-      --with-imagemagick
       --with-modules
       --with-rsvg
       --with-dbus
