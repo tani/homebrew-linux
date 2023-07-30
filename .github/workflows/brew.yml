@@ -10,10 +10,6 @@ jobs:
         package:
           - name: emacs-gtk
             options: ''
-          - name: acl2
-            options: ''
-          - name: isabelle
-            options: '--HEAD'
           - name: neovim
             options: '--HEAD'
     runs-on: ubuntu-latest
