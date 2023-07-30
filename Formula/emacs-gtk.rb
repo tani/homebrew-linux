@@ -65,7 +65,6 @@ class EmacsGtk < Formula
       --with-dbus
       --with-small-ja-dic
       --with-xwidgets
-      
     ]
 
     ENV.append "CPATH", "-I#{Formula["libgccjit"].opt_include}"
@@ -78,6 +77,13 @@ class EmacsGtk < Formula
     system "make", "install"
   end
 
+  def caveats
+    <<~EOS
+      To use libgccjit, add the following to your shell profile
+        export LD_LIBRARY_PATH=#{Formula["libgccjit"].opt_lib}/gcc/current}
+    EOS
+  end
+  
   test do
     assert_equal "4", shell_output("#{bin}/emacs --batch --eval=\"(print (+ 2 2))\"").strip
   end
